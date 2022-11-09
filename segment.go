@@ -39,7 +39,7 @@ type Segment interface {
 
 	Count() uint64
 
-	DocNumbers([]string) (*roaring.Bitmap, error)
+	DocNumbers([]string) (DocIDDictionary, error)
 
 	Fields() []string
 
@@ -105,6 +105,11 @@ type PostingsIterator interface {
 	Advance(docNum uint64) (Posting, error)
 
 	Size() int
+}
+
+type DocIDDictionary interface {
+	Size() uint64
+	DocNumbers() *roaring.Bitmap
 }
 
 type DiskStatsReporter interface {
